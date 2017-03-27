@@ -13,14 +13,38 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\instructions">
+      <UniqueIdentifier>{09ea03fd-78e1-4d7e-80c8-e4466dc80847}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\instructions">
+      <UniqueIdentifier>{5fa017ca-2b7c-4543-8301-2174b7cd1634}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="virtual_machine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="instruction_add.h">
+      <Filter>Header Files\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="instruction_factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="virtual_machine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="instruction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="instruction_add.cpp">
+      <Filter>Source Files\instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="instruction_factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

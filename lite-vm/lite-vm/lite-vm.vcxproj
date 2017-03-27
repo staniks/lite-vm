@@ -110,9 +110,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="instruction.h" />
+    <ClInclude Include="instruction_add.h" />
+    <ClInclude Include="instruction_factory.h" />
     <ClInclude Include="virtual_machine.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="instruction.cpp" />
+    <ClCompile Include="instruction_add.cpp" />
+    <ClCompile Include="instruction_factory.cpp" />
     <ClCompile Include="virtual_machine.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
