@@ -3,9 +3,7 @@
 
 using namespace lite;
 
-instruction::instruction(virtual_machine& pVirtualMachine)
-	:
-	mVirtualMachine(pVirtualMachine)
+instruction::instruction()
 {
 }
 

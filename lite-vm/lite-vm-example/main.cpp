@@ -2,7 +2,9 @@
 
 int main()
 {
-	lite::virtual_machine virtualMachine(8, 128, 64);
+	std::vector<lite::byte> program = { 0x01, 1, 2, 3 };
+	lite::virtual_machine virtualMachine(8, 128, program);
+
 	virtualMachine.step();
 	return 0;
 }

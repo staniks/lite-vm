@@ -5,6 +5,8 @@
 #include <memory>
 #include <vector>
 
+#include "types.h"
+
 namespace lite
 {
 	class virtual_machine;
@@ -12,14 +14,12 @@ namespace lite
 	class instruction
 	{
 	public:
-		instruction(virtual_machine& pVirtualMachine);
+		instruction();
 		virtual ~instruction();
 
-		virtual std::unique_ptr<instruction> clone() = 0;
-		virtual void execute(std::vector<uint64_t>& pArguments) = 0;
-
-	protected:
-		virtual_machine& mVirtualMachine;
+		virtual byte bytecode() const = 0;
+		
+		virtual void execute(virtual_machine& pVirtualMachine) = 0;
 	};
 }
 

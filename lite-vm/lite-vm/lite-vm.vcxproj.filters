@@ -30,7 +30,7 @@
     <ClInclude Include="instruction_add.h">
       <Filter>Header Files\instructions</Filter>
     </ClInclude>
-    <ClInclude Include="instruction_factory.h">
+    <ClInclude Include="types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -43,9 +43,6 @@
     </ClCompile>
     <ClCompile Include="instruction_add.cpp">
       <Filter>Source Files\instructions</Filter>
-    </ClCompile>
-    <ClCompile Include="instruction_factory.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
