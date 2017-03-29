@@ -3,23 +3,20 @@
 #include <regex>
 
 #include <compiler.h>
+#include <sstream>
 
 int main()
 {
 	std::stringstream str;
 	str << "ldb 32 r1" << std::endl;
-	str << "stb r1 33" << std::endl;
+	str << "add r1 r1 r2" << std::endl;
+	str << "stb r2 33" << std::endl;
 
-	std::vector<lite::byte> bytes = lite::compiler::compile(str);
+	std::vector<lite::word> program = lite::compiler::compile(str);
 
-	std::vector<lite::byte> program = 
-	{ 
-		0x3, 32, 0, 0, 0, 1,
-		0x2, 1, 33, 0, 0, 0
-	};
-	lite::virtual_machine virtualMachine(8, 1000, program);
+	lite::virtual_machine virtualMachine(8, 1024, program);
 
-	virtualMachine.memory<lite::byte>(32, 9);
+	virtualMachine.memory(32, 9);
 
 	while (true)
 	{
@@ -39,8 +36,8 @@ int main()
 		}
 	}	
 
-	std::cout << virtualMachine.registers<lite::word>(1) << std::endl;
-	std::cout << virtualMachine.memory<lite::word>(33) << std::endl;
+	std::cout << virtualMachine.registers(1) << std::endl;
+	std::cout << virtualMachine.memory(33) << std::endl;
 
 	return 0;
 }

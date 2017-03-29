@@ -127,6 +127,7 @@
     <ClCompile Include="instruction_load_byte.cpp" />
     <ClCompile Include="instruction_set.cpp" />
     <ClCompile Include="instruction_store_byte.cpp" />
+    <ClCompile Include="types.cpp" />
     <ClCompile Include="virtual_machine.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

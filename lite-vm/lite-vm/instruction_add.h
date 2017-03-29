@@ -12,10 +12,10 @@ namespace lite
 		instruction_add();
 		virtual ~instruction_add();
 
-		virtual byte bytecode() const;
+		virtual word bytecode() const;
 
 		virtual std::string regex();
-		virtual std::vector<byte> compile(std::smatch match);
+		virtual std::vector<word> compile(std::vector<std::string>& arguments);
 		
 		virtual void execute(virtual_machine& pVirtualMachine);
 	};

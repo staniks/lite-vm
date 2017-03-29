@@ -1,20 +1,22 @@
+#include <string>
+
 #include "compiler.h"
 #include "instruction_set.h"
 
 using namespace lite;
 
-std::vector<byte> compiler::compile(std::stringstream& stream)
+std::vector<word> compiler::compile(std::istream& stream)
 {
 	instruction_set instructionSet;
-	std::vector<byte> bytes;
+	std::vector<word> words;
 
 	std::string line;
 	while (std::getline(stream, line))
 	{
-		std::vector<byte> instructionBytes = instructionSet.compile(line);
-		for (int i = 0; i < instructionBytes.size(); i++)
-			bytes.push_back(instructionBytes[i]);
+		std::vector<word> instructionWords = instructionSet.compile(line);
+		for (int i = 0; i < instructionWords.size(); i++)
+			words.push_back(instructionWords[i]);
 	}
 
-	return bytes;
+	return words;
 }

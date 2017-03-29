@@ -2,11 +2,13 @@
 #define LITE_TYPES_H
 
 #include <cstdint>
+#include <string>
 
 namespace lite
 {
-	typedef uint8_t byte;
 	typedef uint32_t word;
+
+	word string_to_word(std::string& str);
 }
 
 #endif

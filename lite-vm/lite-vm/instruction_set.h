@@ -20,11 +20,11 @@ namespace lite
 
 		void register_instruction(std::unique_ptr<instruction> pInstruction);
 
-		void execute(byte pInstructionBytecode, virtual_machine& pVirtualMachine);
+		void execute(word pInstructionBytecode, virtual_machine& pVirtualMachine);
 
-		std::vector<byte> compile(std::string line);
+		std::vector<word> compile(std::string line);
 	private:
-		std::map<byte, std::unique_ptr<instruction>> mInstructions;
+		std::map<word, std::unique_ptr<instruction>> mInstructions;
 	};
 }
 

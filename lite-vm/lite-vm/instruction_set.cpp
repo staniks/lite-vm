@@ -23,7 +23,7 @@ void instruction_set::register_instruction(std::unique_ptr<instruction> pInstruc
 	mInstructions[pInstruction->bytecode()] = std::move(pInstruction);
 }
 
-void instruction_set::execute(byte pInstructionBytecode, virtual_machine& pVirtualMachine)
+void instruction_set::execute(word pInstructionBytecode, virtual_machine& pVirtualMachine)
 {
 	auto it = mInstructions.find(pInstructionBytecode);
 	if (it != mInstructions.end())
@@ -32,7 +32,7 @@ void instruction_set::execute(byte pInstructionBytecode, virtual_machine& pVirtu
 		throw lite::invalid_instruction();
 }
 
-std::vector<byte> instruction_set::compile(std::string line)
+std::vector<word> instruction_set::compile(std::string line)
 {
 	for (auto it = mInstructions.begin(); it != mInstructions.end(); it++)
 	{
@@ -42,8 +42,13 @@ std::vector<byte> instruction_set::compile(std::string line)
 		std::smatch match;
 		if (std::regex_search(line, match, regex))
 		{
-			return currentInstruction->compile(match);
+			std::vector<std::string> arguments;
+			for (int i = 1; i < match.size(); i++)
+			{
+				arguments.push_back(match[i].str());
+			}
+			return currentInstruction->compile(arguments);
 		}
 	}
-	return std::vector<byte>();
+	return std::vector<word>();
 }

@@ -12,34 +12,41 @@ instruction_add::~instruction_add()
 {
 }
 
-byte instruction_add::bytecode() const
+word instruction_add::bytecode() const
 {
 	return 0x1;
 }
 
 std::string instruction_add::regex()
 {
-	return "^add (r[0-9]+) (r[0-9]+) (r[0-9]+)$";
+	return "^add r([0-9]+) r([0-9]+) r([0-9]+)$";
 }
 
-std::vector<byte> instruction_add::compile(std::smatch match)
+std::vector<word> instruction_add::compile(std::vector<std::string>& arguments)
 {
-	return std::vector<byte>();
+	auto words = std::vector<word>();
+
+	words.push_back(bytecode());
+	words.push_back(string_to_word(arguments[0]));
+	words.push_back(string_to_word(arguments[1]));
+	words.push_back(string_to_word(arguments[2]));
+
+	return words;
 }
 
 void instruction_add::execute(virtual_machine& pVirtualMachine)
 {
-	auto arg1 = pVirtualMachine.memory<byte>(pVirtualMachine.program_counter() + 1);
-	auto arg2 = pVirtualMachine.memory<byte>(pVirtualMachine.program_counter() + 2);
-	auto arg3 = pVirtualMachine.memory<byte>(pVirtualMachine.program_counter() + 3);
+	auto code = pVirtualMachine.memory_range(pVirtualMachine.program_counter(), 4);
 
-	auto value1 = pVirtualMachine.registers<word>(arg1);
-	auto value2 = pVirtualMachine.registers<word>(arg2);
+	auto register_index_1 = code[1];
+	auto register_index_2 = code[2];
+	auto register_index_3 = code[3];
+
+	auto value1 = pVirtualMachine.registers(register_index_1);
+	auto value2 = pVirtualMachine.registers(register_index_2);
 	auto result = value1 + value2;
 
-	pVirtualMachine.registers<word>(arg3, result);
+	pVirtualMachine.registers(register_index_3, result);
 
-	std::cout << result << std::endl;
-
-	pVirtualMachine.program_counter(pVirtualMachine.program_counter() + 4);
+	pVirtualMachine.program_counter(pVirtualMachine.program_counter() + (word)code.size());
 }

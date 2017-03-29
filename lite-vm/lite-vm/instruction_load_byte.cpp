@@ -10,46 +10,36 @@ instruction_load_byte::~instruction_load_byte()
 {
 }
 
-byte instruction_load_byte::bytecode() const
+word instruction_load_byte::bytecode() const
 {
 	return 0x3;
 }
 
 std::string instruction_load_byte::regex()
 {
-	return "^ldb ([0-9]+) (r[0-9]+)$";
+	return "^ldb ([0-9]+) r([0-9]+)$";
 }
 
-std::vector<byte> instruction_load_byte::compile(std::smatch match)
+std::vector<word> instruction_load_byte::compile(std::vector<std::string>& arguments)
 {
-	auto code = bytecode();
-	word arg1 = atoi(match[1].str().c_str());
-	byte arg2 = atoi(match[2].str().c_str());
+	auto words = std::vector<word>();
 
-	word instruction_size = sizeof(code) + sizeof(arg1) + sizeof(arg2);
+	words.push_back(bytecode());
+	words.push_back(string_to_word(arguments[0]));
+	words.push_back(string_to_word(arguments[1]));
 
-	std::vector<byte> bytes = std::vector<byte>(instruction_size, 0);
-
-	*(&bytes[0]) = code;
-	*(&bytes[sizeof(code)]) = arg1 << 8;
-
-	return bytes;
+	return words;
 }
 
 void instruction_load_byte::execute(virtual_machine& pVirtualMachine)
 {
-	auto code = bytecode();
-	word programCounterDelta = sizeof(code);
+	auto code = pVirtualMachine.memory_range(pVirtualMachine.program_counter(), 3);
 
-	auto address = pVirtualMachine.memory<word>(pVirtualMachine.program_counter() + programCounterDelta);  
-	programCounterDelta += sizeof(address);
+	auto address = code[1];
+	auto register_index = code[2];
 
-	auto reg = pVirtualMachine.memory<byte>(pVirtualMachine.program_counter() + programCounterDelta);  
-	programCounterDelta += sizeof(reg);
+	auto value = pVirtualMachine.memory(address);
+	pVirtualMachine.registers(register_index, value);
 
-	auto value = pVirtualMachine.memory<byte>(address);
-
-	pVirtualMachine.registers<byte>(reg, value);
-
-	pVirtualMachine.program_counter(pVirtualMachine.program_counter() + programCounterDelta);
+	pVirtualMachine.program_counter(pVirtualMachine.program_counter() + (word)code.size());
 }
