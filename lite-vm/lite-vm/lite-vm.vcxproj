@@ -110,14 +110,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="compiler.h" />
+    <ClInclude Include="exception.h" />
     <ClInclude Include="instruction.h" />
     <ClInclude Include="instruction_add.h" />
+    <ClInclude Include="instruction_load_byte.h" />
+    <ClInclude Include="instruction_set.h" />
+    <ClInclude Include="instruction_store_byte.h" />
     <ClInclude Include="types.h" />
     <ClInclude Include="virtual_machine.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="compiler.cpp" />
     <ClCompile Include="instruction.cpp" />
     <ClCompile Include="instruction_add.cpp" />
+    <ClCompile Include="instruction_load_byte.cpp" />
+    <ClCompile Include="instruction_set.cpp" />
+    <ClCompile Include="instruction_store_byte.cpp" />
     <ClCompile Include="virtual_machine.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

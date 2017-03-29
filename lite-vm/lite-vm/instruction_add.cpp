@@ -14,20 +14,30 @@ instruction_add::~instruction_add()
 
 byte instruction_add::bytecode() const
 {
-	return 0x01;
+	return 0x1;
+}
+
+std::string instruction_add::regex()
+{
+	return "^add (r[0-9]+) (r[0-9]+) (r[0-9]+)$";
+}
+
+std::vector<byte> instruction_add::compile(std::smatch match)
+{
+	return std::vector<byte>();
 }
 
 void instruction_add::execute(virtual_machine& pVirtualMachine)
 {
-	byte arg1 = pVirtualMachine.memory<byte>(pVirtualMachine.program_counter() + 1);
-	byte arg2 = pVirtualMachine.memory<byte>(pVirtualMachine.program_counter() + 2);
-	byte arg3 = pVirtualMachine.memory<byte>(pVirtualMachine.program_counter() + 3);
+	auto arg1 = pVirtualMachine.memory<byte>(pVirtualMachine.program_counter() + 1);
+	auto arg2 = pVirtualMachine.memory<byte>(pVirtualMachine.program_counter() + 2);
+	auto arg3 = pVirtualMachine.memory<byte>(pVirtualMachine.program_counter() + 3);
 
-	word value1 = pVirtualMachine.registers(arg1);
-	word value2 = pVirtualMachine.registers(arg2);
-	word result = value1 + value2;
+	auto value1 = pVirtualMachine.registers<word>(arg1);
+	auto value2 = pVirtualMachine.registers<word>(arg2);
+	auto result = value1 + value2;
 
-	pVirtualMachine.registers(arg3, result);
+	pVirtualMachine.registers<word>(arg3, result);
 
 	std::cout << result << std::endl;
 

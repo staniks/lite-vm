@@ -33,6 +33,21 @@
     <ClInclude Include="types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="instruction_store_byte.h">
+      <Filter>Header Files\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="instruction_load_byte.h">
+      <Filter>Header Files\instructions</Filter>
+    </ClInclude>
+    <ClInclude Include="compiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="instruction_set.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="virtual_machine.cpp">
@@ -43,6 +58,18 @@
     </ClCompile>
     <ClCompile Include="instruction_add.cpp">
       <Filter>Source Files\instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="instruction_store_byte.cpp">
+      <Filter>Source Files\instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="instruction_load_byte.cpp">
+      <Filter>Source Files\instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="compiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="instruction_set.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

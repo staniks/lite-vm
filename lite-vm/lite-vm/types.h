@@ -5,8 +5,8 @@
 
 namespace lite
 {
-	typedef typename uint8_t byte;
-	typedef typename uint64_t word;
+	typedef uint8_t byte;
+	typedef uint32_t word;
 }
 
 #endif
