@@ -2,7 +2,7 @@
 
 using namespace lite;
 
-word lite::string_to_word(std::string& str)
+word lite::string_to_word(std::string& pString)
 {
-	return std::atoi(str.c_str());
+	return std::atoi(pString.c_str());
 }

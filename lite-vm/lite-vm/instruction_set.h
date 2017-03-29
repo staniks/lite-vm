@@ -22,7 +22,7 @@ namespace lite
 
 		void execute(word pInstructionBytecode, virtual_machine& pVirtualMachine);
 
-		std::vector<word> compile(std::string line);
+		std::vector<word> compile(std::string pLine);
 	private:
 		std::map<word, std::unique_ptr<instruction>> mInstructions;
 	};

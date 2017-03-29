@@ -11,7 +11,7 @@ namespace lite
 	class compiler
 	{
 	public:
-		static std::vector<word> compile(std::istream& stream);
+		static std::vector<word> compile(std::istream& pStream);
 	};
 }
 

@@ -6,13 +6,13 @@
 #include <memory>
 #include <vector>
 
-#include "exception.h"
 #include "types.h"
 
 namespace lite
 {
 	class instruction_set;
 	enum class instructions;
+	class machine_observer;
 
 	class virtual_machine
 	{
@@ -20,7 +20,10 @@ namespace lite
 		virtual_machine(word pNumRegisters, word pMemorySize, std::vector<word>& pProgram);
 		~virtual_machine();
 
-		void step();
+		bool step();
+		void halt();
+
+		void add_observer(machine_observer* observer);
 
 		word program_counter() const;
 		word stack_pointer() const;
@@ -39,8 +42,12 @@ namespace lite
 
 		std::unique_ptr<instruction_set> mInstructionSet;
 
+		std::vector<machine_observer*> mObservers;
+
 		word mProgramCounter;
 		word mStackPointer;
+
+		bool mHalted;
 	};
 }
 

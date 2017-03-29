@@ -1,4 +1,6 @@
+#include "exception.h"
 #include "instruction_set.h"
+#include "machine_observer.h"
 #include "virtual_machine.h"
 
 using namespace lite;
@@ -6,7 +8,8 @@ using namespace lite;
 virtual_machine::virtual_machine(word pNumRegisters, word pMemorySize, std::vector<word>& pProgram)
 	:
 	mProgramCounter(0),
-	mStackPointer(0)
+	mStackPointer(0),
+	mHalted(false)
 {
 	mRegisters = std::vector<word>(pNumRegisters, 0);
 	mMemory = std::vector<word>(pMemorySize, 0);
@@ -22,11 +25,24 @@ virtual_machine::~virtual_machine()
 {
 }
 
-void virtual_machine::step()
+void virtual_machine::add_observer(machine_observer* observer)
 {
-	word instructionBytecode = memory(mProgramCounter);
+	mObservers.push_back(observer);
+}
 
-	mInstructionSet->execute(instructionBytecode, *this);
+bool virtual_machine::step()
+{
+	if (mHalted)
+		return !mHalted;
+
+	mInstructionSet->execute(memory(mProgramCounter), *this);
+
+	return !mHalted;
+}
+
+void virtual_machine::halt()
+{
+	mHalted = true;
 }
 
 word virtual_machine::program_counter() const
@@ -74,6 +90,10 @@ void virtual_machine::memory(word pAddress, word pValue)
 	if (pAddress < mMemory.size())
 	{
 		mMemory[pAddress] = pValue;
+		for (auto it = mObservers.begin(); it != mObservers.end(); it++)
+		{
+			(*it)->on_memory_write(pAddress, pValue);
+		}
 	}
 	else
 		throw lite::out_of_bounds_exception();
@@ -81,7 +101,13 @@ void virtual_machine::memory(word pAddress, word pValue)
 void virtual_machine::registers(word pRegister, word pValue)
 {
 	if (pRegister < mRegisters.size())
+	{
 		mRegisters[pRegister] = pValue;
+		for (auto it = mObservers.begin(); it != mObservers.end(); it++)
+		{
+			(*it)->on_register_write(pRegister, pValue);
+		}
+	}
 	else
 		throw lite::out_of_bounds_exception();
 }

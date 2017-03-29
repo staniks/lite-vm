@@ -1,43 +1,49 @@
 #include <iostream>
-#include <virtual_machine.h>
-#include <regex>
-
-#include <compiler.h>
 #include <sstream>
+#include <lite_vm.h>
 
-int main()
+class example_observer : public lite::machine_observer
 {
-	std::stringstream str;
-	str << "ldb 32 r1" << std::endl;
-	str << "add r1 r1 r2" << std::endl;
-	str << "stb r2 33" << std::endl;
+public:
+	virtual void on_register_write(lite::word pRegister, lite::word pValue)
+	{
+		std::cout << "Written " << pValue << " into register " << "[R" << pRegister << "]." << std::endl;
+	}
+	virtual void on_memory_write(lite::word pAddress, lite::word pValue)
+	{
+		std::cout << "Written " << pValue << " on memory address " << "[" << pAddress << "]." << std::endl;
+	}
+};
 
-	std::vector<lite::word> program = lite::compiler::compile(str);
+int main(int argc, char** argv)
+{
+	std::stringstream exampleSourceStream;
 
-	lite::virtual_machine virtualMachine(8, 1024, program);
+	exampleSourceStream << "ldb 32 r1" << std::endl;
+	exampleSourceStream << "add r1 r1 r2" << std::endl;
+	exampleSourceStream << "stb r2 33" << std::endl;
+
+	std::vector<lite::word> exampleProgram = lite::compiler::compile(exampleSourceStream);
+
+	lite::virtual_machine virtualMachine(8, 1024, exampleProgram);
+
+	example_observer o;
+	virtualMachine.add_observer(&o);
 
 	virtualMachine.memory(32, 9);
 
-	while (true)
+	try
 	{
-		try
-		{
-			virtualMachine.step();
-		}
-		catch (lite::out_of_bounds_exception const& e)
-		{						
-			std::cout << e.what() << std::endl;
-			break;
-		}
-		catch (lite::invalid_instruction const& e)
-		{
-			std::cout << e.what() << std::endl;
-			break;
-		}
+		while (virtualMachine.step());
 	}	
-
-	std::cout << virtualMachine.registers(1) << std::endl;
-	std::cout << virtualMachine.memory(33) << std::endl;
+	catch (lite::out_of_bounds_exception const& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	catch (lite::invalid_instruction const& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 
 	return 0;
 }

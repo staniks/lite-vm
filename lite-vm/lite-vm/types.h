@@ -8,7 +8,7 @@ namespace lite
 {
 	typedef uint32_t word;
 
-	word string_to_word(std::string& str);
+	word string_to_word(std::string& pString);
 }
 
 #endif

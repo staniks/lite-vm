@@ -5,13 +5,13 @@
 
 using namespace lite;
 
-std::vector<word> compiler::compile(std::istream& stream)
+std::vector<word> compiler::compile(std::istream& pStream)
 {
 	instruction_set instructionSet;
 	std::vector<word> words;
 
 	std::string line;
-	while (std::getline(stream, line))
+	while (std::getline(pStream, line))
 	{
 		std::vector<word> instructionWords = instructionSet.compile(line);
 		for (int i = 0; i < instructionWords.size(); i++)

@@ -22,14 +22,14 @@ std::string instruction_add::regex()
 	return "^add r([0-9]+) r([0-9]+) r([0-9]+)$";
 }
 
-std::vector<word> instruction_add::compile(std::vector<std::string>& arguments)
+std::vector<word> instruction_add::compile(std::vector<std::string>& pArguments)
 {
 	auto words = std::vector<word>();
 
 	words.push_back(bytecode());
-	words.push_back(string_to_word(arguments[0]));
-	words.push_back(string_to_word(arguments[1]));
-	words.push_back(string_to_word(arguments[2]));
+	words.push_back(string_to_word(pArguments[0]));
+	words.push_back(string_to_word(pArguments[1]));
+	words.push_back(string_to_word(pArguments[2]));
 
 	return words;
 }
