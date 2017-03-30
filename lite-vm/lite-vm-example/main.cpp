@@ -18,7 +18,17 @@ public:
 int main(int argc, char** argv)
 {
 	std::ifstream exampleSourceStream("example_program.ass");
-	std::vector<lite::word> exampleProgram = lite::compiler::compile(exampleSourceStream);
+	std::vector<lite::word> exampleProgram;
+	
+	try
+	{
+		exampleProgram = lite::compiler::compile(exampleSourceStream);
+	}
+	catch (const lite::compiler_exception& e)
+	{
+		std::cout << e.what() << " Line: " << e.line() << std::endl;
+		return 1;
+	}
 
 	lite::virtual_machine virtualMachine(8, 512, exampleProgram);
 
@@ -29,15 +39,15 @@ int main(int argc, char** argv)
 	{
 		while (virtualMachine.step());
 	}	
-	catch (lite::invalid_address_exception const& e)
+	catch (const lite::invalid_address_exception& e)
 	{
 		std::cout << e.what() << " [Address: " << e.address() << ",  PC: " << e.where() << "]." << std::endl;
 	}
-	catch (lite::invalid_register_exception const& e)
+	catch (const lite::invalid_register_exception& e)
 	{
 		std::cout << e.what() << " [Register: " << e.register_index() << ",  PC: " << e.where() << "]." << std::endl;
 	}
-	catch (lite::invalid_instruction_exception const& e)
+	catch (const lite::invalid_instruction_exception& e)
 	{
 		std::cout << e.what() << std::endl;
 	}

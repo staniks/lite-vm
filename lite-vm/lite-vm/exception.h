@@ -10,15 +10,22 @@ namespace lite
 	class exception : public std::exception
 	{
 	public:
-		exception(const word pProgramCounter);
+		exception();
 		virtual ~exception();
+	};
+
+	class runtime_exception : public lite::exception
+	{
+	public:
+		runtime_exception(const word pProgramCounter);
+		virtual ~runtime_exception();
 
 		word where() const;
 	protected:
 		word mProgramCounter;
 	};
 
-	class invalid_address_exception : public lite::exception
+	class invalid_address_exception : public lite::runtime_exception
 	{
 	public:
 		invalid_address_exception(const word pProgramCounter, const word pAddress);
@@ -30,7 +37,7 @@ namespace lite
 		word mAddress;
 	};
 
-	class invalid_register_exception : public lite::exception
+	class invalid_register_exception : public lite::runtime_exception
 	{
 	public:
 		invalid_register_exception(const word pProgramCounter, const word pRegister);
@@ -42,12 +49,23 @@ namespace lite
 		word mRegister;
 	};
 
-	class invalid_instruction_exception : public lite::exception
+	class invalid_instruction_exception : public lite::runtime_exception
 	{
 	public:
 		invalid_instruction_exception(const word pProgramCounter);
 		virtual ~invalid_instruction_exception();
 		virtual char const * what() const;
+	};
+
+	class compiler_exception : lite::exception
+	{
+	public:
+		compiler_exception(const word pLine);
+		virtual char const * what() const;
+
+		word line() const;
+	private:
+		word mLine;
 	};
 }
 
