@@ -31,7 +31,7 @@ void instruction_set::execute(word pInstructionBytecode, virtual_machine& pVirtu
 	if (it != mInstructions.end())
 		mInstructions[pInstructionBytecode]->execute(pVirtualMachine);
 	else
-		throw lite::invalid_instruction();
+		throw lite::invalid_instruction_exception(pVirtualMachine.program_counter());
 }
 
 std::vector<word> instruction_set::compile(std::string pLine)

@@ -60,7 +60,7 @@ word virtual_machine::memory(word pAddress) const
 		return mMemory[pAddress];
 	}
 	else
-		throw lite::out_of_bounds_exception();
+		throw lite::invalid_address_exception(mProgramCounter, pAddress);
 }
 std::vector<word> virtual_machine::memory_range(word pAddress, word pCount) const
 {
@@ -74,7 +74,7 @@ word virtual_machine::registers(word pRegister) const
 	if (pRegister < mRegisters.size())
 		return mRegisters[pRegister];
 	else
-		throw lite::out_of_bounds_exception();
+		throw lite::invalid_register_exception(mProgramCounter, pRegister);
 }
 
 void virtual_machine::program_counter(word pProgramCounter) 
@@ -96,7 +96,7 @@ void virtual_machine::memory(word pAddress, word pValue)
 		}
 	}
 	else
-		throw lite::out_of_bounds_exception();
+		throw lite::invalid_address_exception(mProgramCounter, pAddress);
 }
 void virtual_machine::registers(word pRegister, word pValue)
 {
@@ -109,5 +109,5 @@ void virtual_machine::registers(word pRegister, word pValue)
 		}
 	}
 	else
-		throw lite::out_of_bounds_exception();
+		throw lite::invalid_register_exception(mProgramCounter, pRegister);
 }

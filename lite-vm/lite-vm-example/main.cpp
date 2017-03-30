@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 
 	std::vector<lite::word> exampleProgram = lite::compiler::compile(exampleSourceStream);
 
-	lite::virtual_machine virtualMachine(8, 1024, exampleProgram);
+	lite::virtual_machine virtualMachine(8, 64, exampleProgram);
 
 	example_observer o;
 	virtualMachine.add_observer(&o);
@@ -32,11 +32,15 @@ int main(int argc, char** argv)
 	{
 		while (virtualMachine.step());
 	}	
-	catch (lite::out_of_bounds_exception const& e)
+	catch (lite::invalid_address_exception const& e)
 	{
-		std::cout << e.what() << std::endl;
+		std::cout << e.what() << " [Address: " << e.address() << ",  PC: " << e.where() << "]." << std::endl;
 	}
-	catch (lite::invalid_instruction const& e)
+	catch (lite::invalid_register_exception const& e)
+	{
+		std::cout << e.what() << " [Register: " << e.register_index() << ",  PC: " << e.where() << "]." << std::endl;
+	}
+	catch (lite::invalid_instruction_exception const& e)
 	{
 		std::cout << e.what() << std::endl;
 	}
