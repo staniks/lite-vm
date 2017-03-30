@@ -5,11 +5,11 @@
 class example_observer : public lite::machine_observer
 {
 public:
-	virtual void on_register_write(lite::word pRegister, lite::word pValue)
+	virtual void on_register_write(const lite::word pRegister, const lite::word pValue)
 	{
 		std::cout << "Written " << pValue << " into register " << "[R" << pRegister << "]." << std::endl;
 	}
-	virtual void on_memory_write(lite::word pAddress, lite::word pValue)
+	virtual void on_memory_write(const lite::word pAddress, const lite::word pValue)
 	{
 		std::cout << "Written " << pValue << " on memory address " << "[" << pAddress << "]." << std::endl;
 	}
@@ -18,15 +18,12 @@ public:
 int main(int argc, char** argv)
 {
 	std::ifstream exampleSourceStream("example_program.ass");
-
 	std::vector<lite::word> exampleProgram = lite::compiler::compile(exampleSourceStream);
 
-	lite::virtual_machine virtualMachine(8, 64, exampleProgram);
+	lite::virtual_machine virtualMachine(8, 512, exampleProgram);
 
 	example_observer o;
 	virtualMachine.add_observer(&o);
-
-	virtualMachine.memory(32, 9);
 
 	try
 	{

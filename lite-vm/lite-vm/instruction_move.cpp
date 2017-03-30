@@ -1,26 +1,26 @@
-#include "instruction_load.h"
+#include "instruction_move.h"
 #include "virtual_machine.h"
 
 using namespace lite;
 
-instruction_load::instruction_load() : instruction()
+instruction_move::instruction_move() : instruction()
 {
 }
-instruction_load::~instruction_load()
+instruction_move::~instruction_move()
 {
 }
 
-word instruction_load::bytecode() const
+word instruction_move::bytecode() const
 {
-	return 0x3;
+	return 0x4;
 }
 
-std::string instruction_load::regex() const
+std::string instruction_move::regex() const
 {
-	return "^ldr ([0-9]+) r([0-9]+)$";
+	return "^mov ([0-9]+) r([0-9]+)$";
 }
 
-std::vector<word> instruction_load::compile(const std::vector<std::string>& pArguments) const
+std::vector<word> instruction_move::compile(const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 
@@ -31,14 +31,13 @@ std::vector<word> instruction_load::compile(const std::vector<std::string>& pArg
 	return words;
 }
 
-void instruction_load::execute(virtual_machine& pVirtualMachine)
+void instruction_move::execute(virtual_machine& pVirtualMachine)
 {
 	auto code = pVirtualMachine.memory_range(pVirtualMachine.program_counter(), 3);
 
-	auto address = code[1];
+	auto value = code[1];
 	auto register_index = code[2];
 
-	auto value = pVirtualMachine.memory(address);
 	pVirtualMachine.registers(register_index, value);
 
 	pVirtualMachine.program_counter(pVirtualMachine.program_counter() + (word)code.size());

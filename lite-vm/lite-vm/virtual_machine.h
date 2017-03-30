@@ -10,14 +10,14 @@
 
 namespace lite
 {
-	class instruction_set;
+	class	instruction_set;
 	enum class instructions;
 	class machine_observer;
 
 	class virtual_machine
 	{
 	public:
-		virtual_machine(word pNumRegisters, word pMemorySize, std::vector<word>& pProgram);
+		virtual_machine(const word pNumRegisters, const word pMemorySize, const std::vector<word>& pProgram);
 		~virtual_machine();
 
 		bool step();
@@ -27,14 +27,14 @@ namespace lite
 
 		word program_counter() const;
 		word stack_pointer() const;
-		word memory(word pAddress) const;
-		std::vector<word> memory_range(word pAddress, word pCount) const;
-		word registers(word pRegister) const;
+		word memory(const word pAddress) const;
+		std::vector<word> memory_range(const word pAddress, const word pCount) const;
+		word registers(const word pRegister) const;
 
-		void program_counter(word pProgramCounter);
-		void stack_pointer(word pStackPointer);
-		void memory(word pAddress, word pValue);
-		void registers(word pRegister, word pValue);
+		void program_counter(const word pProgramCounter);
+		void stack_pointer(const word pStackPointer);
+		void memory(const word pAddress, const word pValue);
+		void registers(const word pRegister, const word pValue);
 
 	private:
 		std::vector<word> mRegisters;

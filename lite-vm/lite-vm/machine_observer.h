@@ -8,8 +8,8 @@ namespace lite
 	class machine_observer
 	{
 	public:
-		virtual void on_register_write(word pRegister, word pValue) = 0;
-		virtual void on_memory_write(word pAddress, word pValue) = 0;
+		virtual void on_register_write(const word pRegister, const word pValue) = 0;
+		virtual void on_memory_write(const word pAddress, const word pValue) = 0;
 	};
 }
 

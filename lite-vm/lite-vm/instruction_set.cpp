@@ -1,8 +1,11 @@
+#include <cassert>
+
 #include "exception.h"
 #include "instruction.h"
 #include "instruction_add.h"
 #include "instruction_halt.h"
 #include "instruction_load.h"
+#include "instruction_move.h"
 #include "instruction_set.h"
 #include "instruction_store.h"
 #include "virtual_machine.h"
@@ -14,6 +17,7 @@ instruction_set::instruction_set()
 	register_instruction(std::make_unique<instruction_add>());
 	register_instruction(std::make_unique<instruction_halt>());
 	register_instruction(std::make_unique<instruction_load>());
+	register_instruction(std::make_unique<instruction_move>());
 	register_instruction(std::make_unique<instruction_store>());
 }
 instruction_set::~instruction_set()
@@ -22,10 +26,13 @@ instruction_set::~instruction_set()
 
 void instruction_set::register_instruction(std::unique_ptr<instruction> pInstruction)
 {
+	auto it = mInstructions.find(pInstruction->bytecode());
+	assert(it == mInstructions.end() && "Instructions cannot have the same bytecode!");
+
 	mInstructions[pInstruction->bytecode()] = std::move(pInstruction);
 }
 
-void instruction_set::execute(word pInstructionBytecode, virtual_machine& pVirtualMachine)
+void instruction_set::execute(const word pInstructionBytecode, virtual_machine& pVirtualMachine)
 {
 	auto it = mInstructions.find(pInstructionBytecode);
 	if (it != mInstructions.end())
@@ -34,7 +41,7 @@ void instruction_set::execute(word pInstructionBytecode, virtual_machine& pVirtu
 		throw lite::invalid_instruction_exception(pVirtualMachine.program_counter());
 }
 
-std::vector<word> instruction_set::compile(std::string pLine)
+std::vector<word> instruction_set::compile(const std::string& pLine) const
 {
 	for (auto it = mInstructions.begin(); it != mInstructions.end(); it++)
 	{

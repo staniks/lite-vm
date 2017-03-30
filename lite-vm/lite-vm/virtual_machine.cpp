@@ -5,7 +5,7 @@
 
 using namespace lite;
 
-virtual_machine::virtual_machine(word pNumRegisters, word pMemorySize, std::vector<word>& pProgram)
+virtual_machine::virtual_machine(const word pNumRegisters, const word pMemorySize, const std::vector<word>& pProgram)
 	:
 	mProgramCounter(0),
 	mStackPointer(0),
@@ -53,7 +53,7 @@ word virtual_machine::stack_pointer() const
 {
 	return mStackPointer;
 }
-word virtual_machine::memory(word pAddress) const
+word virtual_machine::memory(const word pAddress) const
 {
 	if (pAddress < mMemory.size())
 	{
@@ -62,14 +62,14 @@ word virtual_machine::memory(word pAddress) const
 	else
 		throw lite::invalid_address_exception(mProgramCounter, pAddress);
 }
-std::vector<word> virtual_machine::memory_range(word pAddress, word pCount) const
+std::vector<word> virtual_machine::memory_range(const word pAddress, const word pCount) const
 {
 	std::vector<word> range;
 	for (word i = 0; i < pCount; i++)
 		range.push_back(memory(pAddress + i));
 	return range;
 }
-word virtual_machine::registers(word pRegister) const
+word virtual_machine::registers(const word pRegister) const
 {
 	if (pRegister < mRegisters.size())
 		return mRegisters[pRegister];
@@ -77,15 +77,15 @@ word virtual_machine::registers(word pRegister) const
 		throw lite::invalid_register_exception(mProgramCounter, pRegister);
 }
 
-void virtual_machine::program_counter(word pProgramCounter) 
+void virtual_machine::program_counter(const word pProgramCounter) 
 { 
 	mProgramCounter = pProgramCounter; 
 }
-void virtual_machine::stack_pointer(word pStackPointer)
+void virtual_machine::stack_pointer(const word pStackPointer)
 {
 	mStackPointer = pStackPointer;
 }
-void virtual_machine::memory(word pAddress, word pValue)
+void virtual_machine::memory(const word pAddress, const word pValue)
 {
 	if (pAddress < mMemory.size())
 	{
@@ -98,7 +98,7 @@ void virtual_machine::memory(word pAddress, word pValue)
 	else
 		throw lite::invalid_address_exception(mProgramCounter, pAddress);
 }
-void virtual_machine::registers(word pRegister, word pValue)
+void virtual_machine::registers(const word pRegister, const word pValue)
 {
 	if (pRegister < mRegisters.size())
 	{

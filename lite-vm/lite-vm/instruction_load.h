@@ -14,8 +14,8 @@ namespace lite
 
 		virtual word bytecode() const;
 
-		virtual std::string regex();
-		virtual std::vector<word> compile(std::vector<std::string>& pArguments);
+		virtual std::string regex() const;
+		virtual std::vector<word> compile(const std::vector<std::string>& pArguments) const;
 
 		virtual void execute(virtual_machine& pVirtualMachine);
 	};

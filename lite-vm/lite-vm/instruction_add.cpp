@@ -17,12 +17,12 @@ word instruction_add::bytecode() const
 	return 0x1;
 }
 
-std::string instruction_add::regex()
+std::string instruction_add::regex() const
 {
 	return "^add r([0-9]+) r([0-9]+) r([0-9]+)$";
 }
 
-std::vector<word> instruction_add::compile(std::vector<std::string>& pArguments)
+std::vector<word> instruction_add::compile(const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 

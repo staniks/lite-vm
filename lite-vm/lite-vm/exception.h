@@ -10,7 +10,7 @@ namespace lite
 	class exception : public std::exception
 	{
 	public:
-		exception(word pProgramCounter);
+		exception(const word pProgramCounter);
 		virtual ~exception();
 
 		word where() const;
@@ -21,7 +21,7 @@ namespace lite
 	class invalid_address_exception : public lite::exception
 	{
 	public:
-		invalid_address_exception(word pProgramCounter, word pAddress);
+		invalid_address_exception(const word pProgramCounter, const word pAddress);
 		virtual ~invalid_address_exception();
 
 		inline word address() const { return mAddress; }
@@ -33,7 +33,7 @@ namespace lite
 	class invalid_register_exception : public lite::exception
 	{
 	public:
-		invalid_register_exception(word pProgramCounter, word pRegister);
+		invalid_register_exception(const word pProgramCounter, const word pRegister);
 		virtual ~invalid_register_exception();
 
 		inline word register_index() const { return mRegister; }
@@ -45,7 +45,7 @@ namespace lite
 	class invalid_instruction_exception : public lite::exception
 	{
 	public:
-		invalid_instruction_exception(word pProgramCounter);
+		invalid_instruction_exception(const word pProgramCounter);
 		virtual ~invalid_instruction_exception();
 		virtual char const * what() const;
 	};

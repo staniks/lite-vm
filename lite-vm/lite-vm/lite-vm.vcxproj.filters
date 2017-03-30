@@ -57,6 +57,9 @@
     <ClInclude Include="lite_vm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="instruction_move.h">
+      <Filter>Header Files\instructions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="virtual_machine.cpp">
@@ -88,6 +91,9 @@
     </ClCompile>
     <ClCompile Include="exception.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="instruction_move.cpp">
+      <Filter>Source Files\instructions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

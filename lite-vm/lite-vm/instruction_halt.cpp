@@ -15,12 +15,12 @@ word instruction_halt::bytecode() const
 	return 0x0;
 }
 
-std::string instruction_halt::regex()
+std::string instruction_halt::regex() const
 {
 	return "^halt$";
 }
 
-std::vector<word> instruction_halt::compile(std::vector<std::string>& pArguments)
+std::vector<word> instruction_halt::compile(const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 

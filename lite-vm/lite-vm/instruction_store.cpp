@@ -15,12 +15,12 @@ word instruction_store::bytecode() const
 	return 0x2;
 }
 
-std::string instruction_store::regex()
+std::string instruction_store::regex() const
 {
 	return "^str r([0-9]+) ([0-9]+)$";
 }
 
-std::vector<word> instruction_store::compile(std::vector<std::string>& pArguments)
+std::vector<word> instruction_store::compile(const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 
