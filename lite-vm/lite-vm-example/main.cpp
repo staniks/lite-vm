@@ -13,6 +13,10 @@ public:
 	{
 		std::cout << "Written " << pValue << " on memory address " << "[" << pAddress << "]." << std::endl;
 	}
+	virtual void on_compare_flag_write(const lite::word pValue)
+	{
+		std::cout << "Written " << pValue << " in compare flag register." << std::endl;
+	}
 };
 
 int main(int argc, char** argv)

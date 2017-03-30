@@ -35,12 +35,12 @@ char const * invalid_instruction_exception::what() const
 	return "Invalid instruction code.";
 }
 
-compiler_exception::compiler_exception(const word pLine) : mLine(pLine) {}
+compiler_exception::compiler_exception(const size_t pLine) : mLine(pLine) {}
 char const * compiler_exception::what() const
 {
 	return "Compile error.";
 }
-word compiler_exception::line() const
+size_t compiler_exception::line() const
 {
 	return mLine;
 }

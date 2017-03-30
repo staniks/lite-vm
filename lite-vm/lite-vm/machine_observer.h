@@ -10,6 +10,7 @@ namespace lite
 	public:
 		virtual void on_register_write(const word pRegister, const word pValue) = 0;
 		virtual void on_memory_write(const word pAddress, const word pValue) = 0;
+		virtual void on_compare_flag_write(const word pValue) = 0;
 	};
 }
 

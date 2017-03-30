@@ -12,7 +12,7 @@ std::vector<word> compiler::compile(std::istream& pStream)
 	std::vector<word> words;
 
 	std::string line;
-	uint32_t lineNumber = 1;
+	size_t lineNumber = 1;
 	while (std::getline(pStream, line))
 	{
 		std::vector<word> instructionWords = instructionSet.compile(line);
@@ -20,7 +20,7 @@ std::vector<word> compiler::compile(std::istream& pStream)
 		if (instructionWords.size() == 0)
 			throw compiler_exception(lineNumber);
 
-		for (int i = 0; i < instructionWords.size(); i++)
+		for (size_t i = 0; i < instructionWords.size(); i++)
 			words.push_back(instructionWords[i]);
 
 		++lineNumber;

@@ -114,6 +114,7 @@
     <ClInclude Include="exception.h" />
     <ClInclude Include="instruction.h" />
     <ClInclude Include="instruction_add.h" />
+    <ClInclude Include="instruction_compare.h" />
     <ClInclude Include="instruction_halt.h" />
     <ClInclude Include="instruction_load.h" />
     <ClInclude Include="instruction_move.h" />
@@ -129,6 +130,7 @@
     <ClCompile Include="exception.cpp" />
     <ClCompile Include="instruction.cpp" />
     <ClCompile Include="instruction_add.cpp" />
+    <ClCompile Include="instruction_compare.cpp" />
     <ClCompile Include="instruction_halt.cpp" />
     <ClCompile Include="instruction_load.cpp" />
     <ClCompile Include="instruction_move.cpp" />

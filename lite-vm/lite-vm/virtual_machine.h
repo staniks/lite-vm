@@ -28,24 +28,28 @@ namespace lite
 		word program_counter() const;
 		word stack_pointer() const;
 		word memory(const word pAddress) const;
-		std::vector<word> memory_range(const word pAddress, const word pCount) const;
 		word registers(const word pRegister) const;
+		signed_word compare_flag() const;
+		std::vector<word> memory_range(const word pAddress, const word pCount) const;
 
 		void program_counter(const word pProgramCounter);
 		void stack_pointer(const word pStackPointer);
 		void memory(const word pAddress, const word pValue);
 		void registers(const word pRegister, const word pValue);
+		void compare_flag(const signed_word pCompareFlag);
 
 	private:
 		std::vector<word> mRegisters;
 		std::vector<word> mMemory;
+		word mProgramCounter;
+		word mStackPointer;
+		signed_word mCompareFlag;
 
 		std::unique_ptr<instruction_set> mInstructionSet;
 
 		std::vector<machine_observer*> mObservers;
 
-		word mProgramCounter;
-		word mStackPointer;
+		
 
 		bool mHalted;
 	};

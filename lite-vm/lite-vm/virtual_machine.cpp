@@ -9,6 +9,7 @@ virtual_machine::virtual_machine(const word pNumRegisters, const word pMemorySiz
 	:
 	mProgramCounter(0),
 	mStackPointer(0),
+	mCompareFlag(0),
 	mHalted(false)
 {
 	mRegisters = std::vector<word>(pNumRegisters, 0);
@@ -76,6 +77,10 @@ word virtual_machine::registers(const word pRegister) const
 	else
 		throw lite::invalid_register_exception(mProgramCounter, pRegister);
 }
+signed_word virtual_machine::compare_flag() const
+{
+	return mCompareFlag;
+}
 
 void virtual_machine::program_counter(const word pProgramCounter) 
 { 
@@ -110,4 +115,12 @@ void virtual_machine::registers(const word pRegister, const word pValue)
 	}
 	else
 		throw lite::invalid_register_exception(mProgramCounter, pRegister);
+}
+void virtual_machine::compare_flag(const signed_word pCompareFlag)
+{
+	mCompareFlag = pCompareFlag;
+	for (auto it = mObservers.begin(); it != mObservers.end(); it++)
+	{
+		(*it)->on_compare_flag_write(pCompareFlag);
+	}
 }
