@@ -18,7 +18,7 @@ word instruction_load::bytecode() const
 
 std::string instruction_load::regex() const
 {
-	return "^ldr ([0-9]+) r([0-9]+)$";
+	return "ldr ([0-9]+) r([0-9]+)";
 }
 
 std::vector<word> instruction_load::compile(compiler& pCompiler, const std::vector<std::string>& pArguments) const

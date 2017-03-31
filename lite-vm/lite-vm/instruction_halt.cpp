@@ -18,7 +18,7 @@ word instruction_halt::bytecode() const
 
 std::string instruction_halt::regex() const
 {
-	return "^halt$";
+	return "halt";
 }
 
 std::vector<word> instruction_halt::compile(compiler& pCompiler, const std::vector<std::string>& pArguments) const

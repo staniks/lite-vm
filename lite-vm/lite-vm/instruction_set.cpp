@@ -51,7 +51,7 @@ std::vector<word> instruction_set::compile(compiler& pCompiler, const std::strin
 	for (auto it = mInstructions.begin(); it != mInstructions.end(); it++)
 	{
 		auto currentInstruction = it->second.get();
-		std::regex regex(currentInstruction->regex(), std::regex_constants::extended);
+		std::regex regex("^[[:space:]]*" + currentInstruction->regex() + "$", std::regex_constants::extended);
 
 		std::smatch match;
 		if (std::regex_search(pLine, match, regex))

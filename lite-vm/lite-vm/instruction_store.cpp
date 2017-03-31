@@ -18,7 +18,7 @@ word instruction_store::bytecode() const
 
 std::string instruction_store::regex() const
 {
-	return "^str r([0-9]+) ([0-9]+)$";
+	return "str r([0-9]+) ([0-9]+)";
 }
 
 std::vector<word> instruction_store::compile(compiler& pCompiler, const std::vector<std::string>& pArguments) const

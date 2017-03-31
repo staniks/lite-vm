@@ -18,7 +18,7 @@ word instruction_add::bytecode() const
 
 std::string instruction_add::regex() const
 {
-	return "^add r([0-9]+) r([0-9]+) r([0-9]+)$";
+	return "add r([0-9]+) r([0-9]+) r([0-9]+)";
 }
 
 std::vector<word> instruction_add::compile(compiler& pCompiler, const std::vector<std::string>& pArguments) const

@@ -1,8 +1,8 @@
-mov 0 r0
-mov 1 r1
-mov 5 r2
+	mov 0 r0
+	mov 1 r1
+	mov 5 r2
 loop:
-add r0 r1 r0
-cmp r0 r2
-jmp loop ne
-mov 123 r5
+	add r0 r1 r0
+	cmp r0 r2
+	jmp loop ne
+	mov 123 r5

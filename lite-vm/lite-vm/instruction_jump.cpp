@@ -18,7 +18,7 @@ word instruction_jump::bytecode() const
 
 std::string instruction_jump::regex() const
 {
-	return "^jmp ([a-z]+) (uc|eq|ne|gt|ge|ls|le)$";
+	return "jmp ([a-z]+) (uc|eq|ne|gt|ge|ls|le)";
 }
 
 std::vector<word> instruction_jump::compile(compiler& pCompiler, const std::vector<std::string>& pArguments) const
