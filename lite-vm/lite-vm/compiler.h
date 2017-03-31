@@ -9,6 +9,16 @@
 
 namespace lite
 {
+	struct compiler_label_request
+	{
+	public:
+		compiler_label_request(std::string pLabel, size_t pLine, word pAddress);
+
+		std::string mLabel;
+		size_t mLine;
+		word mAddress;		
+	};
+
 	class compiler
 	{
 	public:
@@ -18,13 +28,11 @@ namespace lite
 
 		word current_word() const;
 	private:
-		word label(const std::string pLabel) const;
-
 		size_t mCurrentLine;
 		word mCurrentWord;
 
 		std::map<std::string, word> mLabels;
-		std::vector<std::pair<std::string, word>> mLabelRequests;
+		std::vector<compiler_label_request> mLabelRequests;
 	};
 }
 

@@ -5,3 +5,4 @@ loop:
 add r0 r1 r0
 cmp r0 r2
 jmp loop ne
+mov 123 r5

@@ -7,6 +7,15 @@
 
 using namespace lite;
 
+compiler_label_request::compiler_label_request(std::string pLabel, size_t pLine, word pAddress)
+	:
+	mLabel(pLabel),
+	mLine(pLine),
+	mAddress(pAddress)
+{
+
+}
+
 std::vector<word> compiler::compile(std::istream& pStream)
 {
 	instruction_set instructionSet;
@@ -45,27 +54,23 @@ std::vector<word> compiler::compile(std::istream& pStream)
 	//go through the label requests
 	for (auto it = mLabelRequests.begin(); it != mLabelRequests.end(); it++)
 	{
-		auto pair = *it;
-		words[pair.second] = label(pair.first);		
+		auto request = *it;
+
+		auto labelIterator = mLabels.find(request.mLabel);
+		if (labelIterator == mLabels.end())
+			throw compiler_exception(request.mLine);
+
+		words[request.mAddress] = labelIterator->second;		
 	}
 
 	return words;
 }
 void compiler::request_label_address(const std::string pLabel, const word pAddress)
 {
-	mLabelRequests.push_back(std::pair<std::string, word>(pLabel, pAddress));
+	mLabelRequests.push_back(compiler_label_request(pLabel, mCurrentLine, pAddress));
 }
 
 word compiler::current_word() const
 {
 	return mCurrentWord;
-}
-
-word compiler::label(const std::string pLabel) const
-{
-	auto it = mLabels.find(pLabel);
-	if (it == mLabels.end())
-		throw compiler_exception(mCurrentLine);
-
-	return it->second;
 }
