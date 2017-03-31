@@ -21,12 +21,14 @@ std::string instruction_jump::regex() const
 	return "^jmp ([a-z]+) (uc|eq|ne|gt|ge|ls|le)$";
 }
 
-std::vector<word> instruction_jump::compile(const compiler& pCompiler, const std::vector<std::string>& pArguments) const
+std::vector<word> instruction_jump::compile(compiler& pCompiler, const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 
 	words.push_back(bytecode());
-	words.push_back(pCompiler.label(pArguments[0]));
+	words.push_back(0);
+
+	pCompiler.request_label_address(pArguments[0], pCompiler.current_word() + 1);
 
 	auto conditionArgument = pArguments[1];
 	word condition = flag_unconditional;

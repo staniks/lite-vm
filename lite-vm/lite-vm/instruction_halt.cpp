@@ -21,7 +21,7 @@ std::string instruction_halt::regex() const
 	return "^halt$";
 }
 
-std::vector<word> instruction_halt::compile(const compiler& pCompiler, const std::vector<std::string>& pArguments) const
+std::vector<word> instruction_halt::compile(compiler& pCompiler, const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 
