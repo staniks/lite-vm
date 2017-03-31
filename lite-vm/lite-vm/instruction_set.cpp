@@ -5,6 +5,7 @@
 #include "instruction_add.h"
 #include "instruction_compare.h"
 #include "instruction_halt.h"
+#include "instruction_jump.h"
 #include "instruction_load.h"
 #include "instruction_move.h"
 #include "instruction_set.h"
@@ -18,6 +19,7 @@ instruction_set::instruction_set()
 	register_instruction(std::make_unique<instruction_add>());
 	register_instruction(std::make_unique<instruction_compare>());
 	register_instruction(std::make_unique<instruction_halt>());
+	register_instruction(std::make_unique<instruction_jump>());
 	register_instruction(std::make_unique<instruction_load>());
 	register_instruction(std::make_unique<instruction_move>());
 	register_instruction(std::make_unique<instruction_store>());

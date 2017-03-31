@@ -63,6 +63,9 @@
     <ClInclude Include="instruction_compare.h">
       <Filter>Header Files\instructions</Filter>
     </ClInclude>
+    <ClInclude Include="instruction_jump.h">
+      <Filter>Header Files\instructions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="virtual_machine.cpp">
@@ -99,6 +102,9 @@
       <Filter>Source Files\instructions</Filter>
     </ClCompile>
     <ClCompile Include="instruction_compare.cpp">
+      <Filter>Source Files\instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="instruction_jump.cpp">
       <Filter>Source Files\instructions</Filter>
     </ClCompile>
   </ItemGroup>

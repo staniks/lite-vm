@@ -116,6 +116,7 @@
     <ClInclude Include="instruction_add.h" />
     <ClInclude Include="instruction_compare.h" />
     <ClInclude Include="instruction_halt.h" />
+    <ClInclude Include="instruction_jump.h" />
     <ClInclude Include="instruction_load.h" />
     <ClInclude Include="instruction_move.h" />
     <ClInclude Include="instruction_set.h" />
@@ -132,6 +133,7 @@
     <ClCompile Include="instruction_add.cpp" />
     <ClCompile Include="instruction_compare.cpp" />
     <ClCompile Include="instruction_halt.cpp" />
+    <ClCompile Include="instruction_jump.cpp" />
     <ClCompile Include="instruction_load.cpp" />
     <ClCompile Include="instruction_move.cpp" />
     <ClCompile Include="instruction_set.cpp" />
