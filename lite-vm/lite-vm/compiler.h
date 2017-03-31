@@ -2,6 +2,7 @@
 #define LITE_COMPILER_H
 
 #include <istream>
+#include <map>
 #include <vector>
 
 #include "types.h"
@@ -11,7 +12,13 @@ namespace lite
 	class compiler
 	{
 	public:
-		static std::vector<word> compile(std::istream& pStream);
+		std::vector<word> compile(std::istream& pStream);
+
+		word label(const std::string pLabel) const;
+	private:
+		size_t mCurrentLine;
+
+		std::map<std::string, word> mLabels;
 	};
 }
 

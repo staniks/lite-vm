@@ -1,5 +1,4 @@
-#include <iostream> //deleteme
-
+#include "compiler.h"
 #include "instruction_add.h"
 #include "virtual_machine.h"
 
@@ -22,7 +21,7 @@ std::string instruction_add::regex() const
 	return "^add r([0-9]+) r([0-9]+) r([0-9]+)$";
 }
 
-std::vector<word> instruction_add::compile(const std::vector<std::string>& pArguments) const
+std::vector<word> instruction_add::compile(const compiler& pCompiler, const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 

@@ -1,6 +1,7 @@
 mov 0 r0
 mov 1 r1
 mov 5 r2
+loop:
 add r0 r1 r0
 cmp r0 r2
-jmp 9 ne
+jmp loop ne

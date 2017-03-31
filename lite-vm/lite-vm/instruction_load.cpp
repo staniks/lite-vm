@@ -1,3 +1,4 @@
+#include "compiler.h"
 #include "instruction_load.h"
 #include "virtual_machine.h"
 
@@ -20,7 +21,7 @@ std::string instruction_load::regex() const
 	return "^ldr ([0-9]+) r([0-9]+)$";
 }
 
-std::vector<word> instruction_load::compile(const std::vector<std::string>& pArguments) const
+std::vector<word> instruction_load::compile(const compiler& pCompiler, const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 

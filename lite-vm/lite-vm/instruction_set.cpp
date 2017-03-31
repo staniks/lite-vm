@@ -1,5 +1,6 @@
 #include <cassert>
 
+#include "compiler.h"
 #include "exception.h"
 #include "instruction.h"
 #include "instruction_add.h"
@@ -45,7 +46,7 @@ void instruction_set::execute(const word pInstructionBytecode, virtual_machine& 
 		throw lite::invalid_instruction_exception(pVirtualMachine.program_counter());
 }
 
-std::vector<word> instruction_set::compile(const std::string& pLine) const
+std::vector<word> instruction_set::compile(const compiler& pCompiler, const std::string& pLine) const
 {
 	for (auto it = mInstructions.begin(); it != mInstructions.end(); it++)
 	{
@@ -60,7 +61,7 @@ std::vector<word> instruction_set::compile(const std::string& pLine) const
 			{
 				arguments.push_back(match[i].str());
 			}
-			return currentInstruction->compile(arguments);
+			return currentInstruction->compile(pCompiler, arguments);
 		}
 	}
 	return std::vector<word>();

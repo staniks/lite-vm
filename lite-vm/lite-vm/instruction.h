@@ -10,6 +10,7 @@
 
 namespace lite
 {
+	class compiler;
 	class virtual_machine;
 
 	class instruction
@@ -21,7 +22,7 @@ namespace lite
 		virtual word bytecode() const = 0;
 
 		virtual std::string regex() const = 0;
-		virtual std::vector<word> compile(const std::vector<std::string>& pArguments) const = 0;
+		virtual std::vector<word> compile(const compiler& pCompiler, const std::vector<std::string>& pArguments) const = 0;
 		
 		virtual void execute(virtual_machine& pVirtualMachine) = 0;
 	};

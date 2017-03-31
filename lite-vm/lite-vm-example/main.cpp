@@ -24,9 +24,10 @@ int main(int argc, char** argv)
 	std::ifstream exampleSourceStream("example_program.ass");
 	std::vector<lite::word> exampleProgram;
 	
+	lite::compiler compiler;
 	try
 	{
-		exampleProgram = lite::compiler::compile(exampleSourceStream);
+		exampleProgram = compiler.compile(exampleSourceStream);
 	}
 	catch (const lite::compiler_exception& e)
 	{

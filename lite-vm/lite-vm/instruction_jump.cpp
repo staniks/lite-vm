@@ -1,3 +1,4 @@
+#include "compiler.h"
 #include "instruction_jump.h"
 #include "virtual_machine.h"
 
@@ -17,15 +18,15 @@ word instruction_jump::bytecode() const
 
 std::string instruction_jump::regex() const
 {
-	return "^jmp ([0-9]+) (uc|eq|ne|gt|ge|ls|le)$";
+	return "^jmp ([a-z]+) (uc|eq|ne|gt|ge|ls|le)$";
 }
 
-std::vector<word> instruction_jump::compile(const std::vector<std::string>& pArguments) const
+std::vector<word> instruction_jump::compile(const compiler& pCompiler, const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 
 	words.push_back(bytecode());
-	words.push_back(string_to_word(pArguments[0]));
+	words.push_back(pCompiler.label(pArguments[0]));
 
 	auto conditionArgument = pArguments[1];
 	word condition = flag_unconditional;

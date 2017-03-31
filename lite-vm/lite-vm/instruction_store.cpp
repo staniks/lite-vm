@@ -1,3 +1,4 @@
+#include "compiler.h"
 #include "instruction_store.h"
 #include "virtual_machine.h"
 
@@ -20,7 +21,7 @@ std::string instruction_store::regex() const
 	return "^str r([0-9]+) ([0-9]+)$";
 }
 
-std::vector<word> instruction_store::compile(const std::vector<std::string>& pArguments) const
+std::vector<word> instruction_store::compile(const compiler& pCompiler, const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 
