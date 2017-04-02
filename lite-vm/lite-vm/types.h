@@ -10,6 +10,7 @@ namespace lite
 	typedef int32_t signed_word;
 
 	word string_to_word(const std::string& pString);
+	std::string trim(const std::string& pString);
 }
 
 #endif

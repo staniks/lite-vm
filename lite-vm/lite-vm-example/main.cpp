@@ -23,15 +23,14 @@ int main(int argc, char** argv)
 {
 	std::ifstream exampleSourceStream("example_program.ass");
 	std::vector<lite::word> exampleProgram;
-	
-	lite::compiler compiler;
+
 	try
 	{
-		exampleProgram = compiler.compile(exampleSourceStream);
+		exampleProgram = lite::compiler::compile(exampleSourceStream);
 	}
 	catch (const lite::compiler_exception& e)
 	{
-		std::cout << e.what() << " Line: " << e.line() << std::endl;
+		std::cout << e.what() << std::endl;
 		return 1;
 	}
 

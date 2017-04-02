@@ -9,7 +9,7 @@
 
 namespace lite
 {
-	class compiler;
+	class compilation_process;
 	class instruction;
 	class virtual_machine;
 
@@ -23,7 +23,7 @@ namespace lite
 
 		void execute(const word pInstructionBytecode, virtual_machine& pVirtualMachine);
 
-		std::vector<word> compile(compiler& pCompiler, const std::string& pLine) const;
+		std::vector<word> compile(compilation_process& pCompilationProcess, const std::string& pLine) const;
 	private:
 		std::map<word, std::unique_ptr<instruction>> mInstructions;
 	};

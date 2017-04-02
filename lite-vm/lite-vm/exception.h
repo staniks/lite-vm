@@ -60,11 +60,12 @@ namespace lite
 	class compiler_exception : lite::exception
 	{
 	public:
-		compiler_exception(const size_t pLine);
+		compiler_exception(const size_t pLine, const std::string pMessage);
 		virtual char const * what() const;
 
 		size_t line() const;
 	private:
+		std::string mMessage;
 		size_t mLine;
 	};
 }

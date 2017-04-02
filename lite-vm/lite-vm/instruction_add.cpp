@@ -1,4 +1,4 @@
-#include "compiler.h"
+#include "compilation_process.h"
 #include "instruction_add.h"
 #include "virtual_machine.h"
 
@@ -18,10 +18,10 @@ word instruction_add::bytecode() const
 
 std::string instruction_add::regex() const
 {
-	return "add r([0-9]+) r([0-9]+) r([0-9]+)";
+	return "^add r([0-9]+) r([0-9]+) r([0-9]+)$";
 }
 
-std::vector<word> instruction_add::compile(compiler& pCompiler, const std::vector<std::string>& pArguments) const
+std::vector<word> instruction_add::compile(compilation_process& pCompilationProcess, const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 

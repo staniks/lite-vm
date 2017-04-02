@@ -66,6 +66,9 @@
     <ClInclude Include="instruction_jump.h">
       <Filter>Header Files\instructions</Filter>
     </ClInclude>
+    <ClInclude Include="compilation_process.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="virtual_machine.cpp">
@@ -106,6 +109,9 @@
     </ClCompile>
     <ClCompile Include="instruction_jump.cpp">
       <Filter>Source Files\instructions</Filter>
+    </ClCompile>
+    <ClCompile Include="compilation_process.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

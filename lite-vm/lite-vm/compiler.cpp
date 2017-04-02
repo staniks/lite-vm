@@ -2,34 +2,26 @@
 #include <string>
 
 #include "compiler.h"
+#include "compilation_process.h"
 #include "exception.h"
 #include "instruction_set.h"
 
 using namespace lite;
-
-compiler_label_request::compiler_label_request(std::string pLabel, size_t pLine, word pAddress)
-	:
-	mLabel(pLabel),
-	mLine(pLine),
-	mAddress(pAddress)
-{
-
-}
 
 std::vector<word> compiler::compile(std::istream& pStream)
 {
 	instruction_set instructionSet;
 	std::vector<word> words;
 	std::string line;
-	
-	mLabelRequests.clear();
-	mLabels.clear();
 
-	mCurrentLine = 1;
-	mCurrentWord = 0;
+	compilation_process compilationProcess;
+
 	while (std::getline(pStream, line))
 	{
-		std::vector<word> instructionWords = instructionSet.compile(*this, line);
+		//trim the line
+		line = lite::trim(line);
+
+		std::vector<word> instructionWords = instructionSet.compile(compilationProcess, line);
 
 		if (instructionWords.size() == 0)
 		{
@@ -38,39 +30,30 @@ std::vector<word> compiler::compile(std::istream& pStream)
 			std::smatch match;
 			if (std::regex_search(line, match, regex))
 			{
-				mLabels[match[1].str()] = mCurrentWord;
+				compilationProcess.mLabels[match[1].str()] = compilationProcess.mCurrentWord;
 			}
 			else
-				throw compiler_exception(mCurrentLine);
+				throw compiler_exception(compilationProcess.mCurrentLine, "Invalid instruction \"" + line + "\".");
 		}	
 
 		for (size_t i = 0; i < instructionWords.size(); i++)
 			words.push_back(instructionWords[i]);
 
-		++mCurrentLine;
-		mCurrentWord += (word)instructionWords.size();
+		++compilationProcess.mCurrentLine;
+		compilationProcess.mCurrentWord += (word)instructionWords.size();
 	}
 
 	//go through the label requests
-	for (auto it = mLabelRequests.begin(); it != mLabelRequests.end(); it++)
+	for (auto it = compilationProcess.mLabelRequests.begin(); it != compilationProcess.mLabelRequests.end(); it++)
 	{
 		auto request = *it;
 
-		auto labelIterator = mLabels.find(request.mLabel);
-		if (labelIterator == mLabels.end())
-			throw compiler_exception(request.mLine);
+		auto labelIterator = compilationProcess.mLabels.find(request.mLabel);
+		if (labelIterator == compilationProcess.mLabels.end())
+			throw compiler_exception(request.mLine, "Unknown label \"" + request.mLabel + "\".");
 
 		words[request.mAddress] = labelIterator->second;		
 	}
 
 	return words;
-}
-void compiler::request_label_address(const std::string pLabel, const word pAddress)
-{
-	mLabelRequests.push_back(compiler_label_request(pLabel, mCurrentLine, pAddress));
-}
-
-word compiler::current_word() const
-{
-	return mCurrentWord;
 }

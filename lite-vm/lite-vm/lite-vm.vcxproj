@@ -110,6 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="compilation_process.h" />
     <ClInclude Include="compiler.h" />
     <ClInclude Include="exception.h" />
     <ClInclude Include="instruction.h" />
@@ -127,6 +128,7 @@
     <ClInclude Include="virtual_machine.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="compilation_process.cpp" />
     <ClCompile Include="compiler.cpp" />
     <ClCompile Include="exception.cpp" />
     <ClCompile Include="instruction.cpp" />

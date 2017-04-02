@@ -1,4 +1,4 @@
-#include "compiler.h"
+#include "compilation_process.h"
 #include "instruction_halt.h"
 #include "virtual_machine.h"
 
@@ -18,10 +18,10 @@ word instruction_halt::bytecode() const
 
 std::string instruction_halt::regex() const
 {
-	return "halt";
+	return "^halt$";
 }
 
-std::vector<word> instruction_halt::compile(compiler& pCompiler, const std::vector<std::string>& pArguments) const
+std::vector<word> instruction_halt::compile(compilation_process& pCompilationProcess, const std::vector<std::string>& pArguments) const
 {
 	auto words = std::vector<word>();
 
